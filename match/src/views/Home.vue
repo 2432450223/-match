@@ -20,14 +20,14 @@ export default {
   mounted(){
     setTimeout(() => {
       this.$router.push({
-        path:"/about",
+        path:"/switch",
       })
     }, 5000);
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .home{
   width:100vw;
   height:100vh;

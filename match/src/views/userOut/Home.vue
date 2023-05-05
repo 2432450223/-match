@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import ChartLine from '../components/ChartLint'
+import ChartLine from '../../components/ChartLint'
 console.log(ChartLine)
 
 export default {
