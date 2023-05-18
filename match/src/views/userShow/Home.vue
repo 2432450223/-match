@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="indexBox">
-      第三模块
+      第三模块正在开发中
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
 .home{
   width:100vw;
   height:100vh;
-  background: url(../../img/bg.jpg);
+  background: url(../../img/背景.png);
   background-size: 100% 100%;
   .indexBox{
     width: 60vw;

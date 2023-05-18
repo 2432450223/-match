@@ -26,6 +26,11 @@ const routes = [
     component: () => import('../views/Show/Home.vue')
   },
   {
+    path: '/showIndex',
+    name: 'sh',
+    component: () => import('../views/Show/Index.vue')
+  },
+  {
     path: '/userSH',
     name: 'ush',
     component: () => import('../views/userShow/Home.vue')
