@@ -10,6 +10,9 @@
         <el-button type="primary" @click="type(3)">饼形图</el-button>
       </el-row>
     </div>
+    <div class="back" @click="back()">
+
+    </div>
   </div>
 </template>
 
@@ -39,40 +42,80 @@ export default {
     }
   },
   async mounted(){
-
-    let a = await apiUrlO('http://47.120.37.177:8888/hainan/gdp')
-    console.log(a);
-
-    for(var item of a.data){
-      if(item.年份 == 2021){
-        this.dataOne.push(item)
+    let a = []
+    if(this.$router.currentRoute.query.type == 'one'){
+      a = await apiUrlO('http://8.130.52.98:8888/hainan/ghy')
+      for(let item of a.data){
+        if(item.year == 2021){
+          this.dataOne.push(item)
+        }
       }
+      console.log(this.dataOne);
+      this.toData(this.$router.currentRoute.query.type)
     }
-    console.log(this.dataOne);
-    this.toData()
+    if(this.$router.currentRoute.query.type == 'two'){
+      a = await apiUrlO('http://8.130.52.98:8888/hainan/gdp')
+      for(let item of a.data){
+        if(item.year == 2021){
+          this.dataOne.push(item)
+        }
+      }
+      console.log(this.dataOne);
+      this.toData(this.$router.currentRoute.query.type)
+    }
+    if(this.$router.currentRoute.query.type == 'three'){
+      a = await apiUrlO('http://8.130.52.98:8888/hainan/gx')
+      for(let item of a.data){
+        if(item.year != null){
+          this.dataOne.push(item)
+        }
+      }
+      console.log(this.dataOne);
+      this.toData(this.$router.currentRoute.query.type)
+    }
+    console.log(a);
   },
   methods:{
-    toData () { 
-      let name = '海南省各市县人均'
-      let xData = Object.keys(this.dataList)
-      let yData = Object.values(this.dataList)
-      // for(let i = 0 ; i <= this.dataOne.length ; i++){
-      //   console.log(this.dataOne[i]);
-      //   this.dataTwo.push({'市县':this.dataOne[i].市县,'全体居民人均可支配收入（元）':this.dataOne[i].全体居民人均可支配收入})
-      // }
-      // log
-      this.dataC = [name,xData,yData,this.unit]
-      console.log(this.dataC);
-      // this.title = convertedData.header
-      // // console.log('title',this.title);
-      // let xTitle = this.title[0]
-      // let yTitle = this.title[1]
-      // // console.log(xTitle,yTitle);
-      // // console.log(this.getValuesByKey(convertedData.body,xTitle));
-      // let xData = this.getValuesByKey(convertedData.body,xTitle)
-      // let yData = this.getValuesByKey(convertedData.body,yTitle)
-      // let name = '张雪'
-      this.$refs.chart.initChart(name,xData,yData,this.unit)
+    toData (type) { 
+      if(type == 'one'){
+        let name = '海南省各市县人均'
+        let xData = []
+        let yData = []
+        this.dataOne.forEach(element => {
+          // console.log(element.市县);
+          xData.push(element.towns)
+          yData.push(element.citiesPCDI)
+        });
+        this.dataC = [name,xData,yData,this.unit]
+        console.log(this.dataC);
+        this.$refs.chart.initChart(name,xData,yData,this.unit)
+      }
+      if(type == 'two'){
+        let name = '海南省各市县就业情况'
+        let xData = []
+        let yData = []
+        this.dataOne.forEach(element => {
+          // console.log(element.市县);
+          xData.push(element.employed_person)
+          yData.push(element.employed_person_numbers)
+        });
+        this.dataC = [name,xData,yData,this.unit]
+        console.log(this.dataC);
+        this.$refs.chart.initChart(name,xData,yData,this.unit)
+      }
+      if(type == 'three'){
+        let name = '海南省毕业生人数'
+        let xData = []
+        let yData = []
+        this.dataOne.forEach(element => {
+          // console.log(element.市县);
+          xData.push(element.year)
+          yData.push(element.students)
+        });
+        this.dataC = [name,xData,yData,this.unit]
+        console.log(this.dataC);
+        this.$refs.chart.initChart(name,xData,yData,this.unit)
+      }
     },
     //数据处理
     getValuesByKey(array, key) {
@@ -88,9 +131,14 @@ export default {
     },
     type(type){
       this.$refs.chart.type = type
-      this.toData()
+      this.toData(this.$router.currentRoute.query.type)
       // console.log(type);
       // this.$refs.chart.changeType(this.dataC,type)
+    },
+    back(){
+      this.$router.push({
+        path:"/showHome"
+      })
     }
   }
 }
@@ -100,7 +148,7 @@ export default {
 .home{
   width:100vw;
   height:100vh;
-  background: url(../../img/背景.png);
+  background: url(../../img/泡泡人.png);
   background-size: 100% 100%;
   .indexBox{
     width: 60vw;
@@ -117,6 +165,18 @@ export default {
   .switchBox{
     top: 5vw;
     position: relative;
+  }
+  .back{
+    width: 15vw;
+    height: 15vh;
+    position: absolute;
+    background-image: url(../../img/返回键.png);
+    background-size: 100% 100%;
+    bottom: 50vh;
+    &:hover{
+      cursor: pointer;
+      background-image: url(../../img/返回键点击效果.png);
+    }
   }
 }
 </style>

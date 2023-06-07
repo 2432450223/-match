@@ -3,6 +3,8 @@
     <div class="indexBox">
       <el-row>
         <el-button type="primary" @click="goIndex('one')">海南省各市县人均</el-button>
+        <el-button type="primary" @click="goIndex('two')">海南省各市县就业情况</el-button>
+        <el-button type="primary" @click="goIndex('three')">海南省毕业生人数</el-button>
       </el-row>
     </div>
   </div>
@@ -55,11 +57,12 @@ export default {
   },
   methods:{
     goIndex(item){
-      if(item == 'one'){
-        this.$router.push({
-          path:"/showIndex"
-        })
-      }
+      this.$router.push({
+        path:"/showIndex",
+        query:{
+          type:item,
+        }
+      })
     },
   },
 }

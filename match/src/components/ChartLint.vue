@@ -110,7 +110,8 @@ export default {
             show: false,
           },
           tooltip: {
-            trigger: 'item'
+            trigger: 'item',
+            formatter:'{b}:{d}%'
           },
           textStyle:{
             color:'auto',
@@ -144,7 +145,7 @@ export default {
               },
               label : {
                 normal : {
-                  formatter: '{b}:{c}: ({d}%)',
+                  formatter: '{b}:{c}({d}%)',
                   textStyle : {
                     fontWeight : 'normal',
                     fontSize : 15
