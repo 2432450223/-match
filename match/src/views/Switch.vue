@@ -38,7 +38,7 @@ export default {
       }
       if(item == 'two'){
         this.$router.push({
-          path:"/userOH",
+          path:"/userTp",
         })
       }
       if(item == 'three'){

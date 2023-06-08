@@ -1,8 +1,7 @@
 <template>
   <div class="home">
     <div class="indexBox">
-      <img alt="Vue logo" src="../img/logo.png">
-      <h2>中国大学生计算机设计大赛</h2>
+      <h2>泛珠三角设计大赛</h2>
       <h1>《万数可视》</h1>
       <h3>An attempt to visualize all the data</h3>
     </div>

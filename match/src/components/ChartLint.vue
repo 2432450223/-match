@@ -75,6 +75,12 @@ export default {
         };
       }else if(this.type == 2){
         option = {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            }
+          },
           xAxis: {
             type: 'category',
             data: xData,

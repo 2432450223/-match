@@ -34,6 +34,11 @@ const routes = [
     path: '/userSH',
     name: 'ush',
     component: () => import('../views/userShow/Home.vue')
+  },
+  {
+    path: '/userTp',
+    name: 'usType',
+    component: () => import('../views/userOut/Type.vue')
   }
 ]
 

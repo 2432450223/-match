@@ -1,10 +1,11 @@
 <template>
   <div class="home">
-    <h1>用户自定义(柱形图)</h1>
+    <h1>用户自定义({{text}})</h1>
     <vue-xlsx-table @on-select-file="handleSelectedFile"> 上传xlsx文件转可视化图表 </vue-xlsx-table>
     <div class="indexBox">
       <ChartLine style="width:100%;height:100%;" class="chart" ref="chart_line_one"/>
     </div>
+    <div class="back" @click="back()"></div>
   </div>
 </template>
 
@@ -21,31 +22,83 @@ export default {
     return{
       type:'',
       title:[],
+      text:'',
     }
   },
   methods: {
     handleSelectedFile (convertedData) {
-      console.log(convertedData)
-      this.title = convertedData.header
-      let headerT = convertedData.header.slice(0)
-      headerT.shift()
-      // console.log('title',this.title);
-      let xTitle = this.title[0]
-      let yTitle = this.title[1]
-      let yTitleT = this.title[2]
-      let yTitleTh = this.title[3]
-      let yTitleF = this.title[4]
-      // console.log(xTitle,yTitle);
-      // console.log(this.getValuesByKey(convertedData.body,xTitle));
-      let xData = this.getValuesByKey(convertedData.body,xTitle)
-      let yDataO = this.getValuesByKey(convertedData.body,yTitle)
-      let yDataT = this.getValuesByKey(convertedData.body,yTitleT)
-      let yDataTh = this.getValuesByKey(convertedData.body,yTitleTh)
-      let yDataF = this.getValuesByKey(convertedData.body,yTitleF)
-      let name = '班级统计'
-      console.log(xTitle);
-      this.$refs.chart_line_one.type = 4
-      this.$refs.chart_line_one.initChart(name,xData,yDataO,yDataT,yDataTh,yDataF,headerT)
+      if(this.$router.currentRoute.query.type == 'one'){
+        console.log(convertedData)
+        this.title = convertedData.header
+        let headerT = convertedData.header.slice(0)
+        headerT.shift()
+        // console.log('title',this.title);
+        let xTitle = this.title[0]
+        let yTitle = this.title[1]
+        let yTitleT = this.title[2]
+        let yTitleTh = this.title[3]
+        let yTitleF = this.title[4]
+        // console.log(xTitle,yTitle);
+        // console.log(this.getValuesByKey(convertedData.body,xTitle));
+        let xData = this.getValuesByKey(convertedData.body,xTitle)
+        let yDataO = this.getValuesByKey(convertedData.body,yTitle)
+        let yDataT = this.getValuesByKey(convertedData.body,yTitleT)
+        let yDataTh = this.getValuesByKey(convertedData.body,yTitleTh)
+        let yDataF = this.getValuesByKey(convertedData.body,yTitleF)
+        let name = '班级缺勤率'
+        console.log(xTitle);
+        this.$refs.chart_line_one.type = 3
+        this.$refs.chart_line_one.initChart(name,xData,yDataO,yDataT,yDataTh,yDataF,headerT)
+      }
+      if(this.$router.currentRoute.query.type == 'two'){
+        console.log(convertedData)
+        this.title = convertedData.header
+        let headerT = convertedData.header.slice(0)
+        headerT.shift()
+        // console.log('title',this.title);
+        let xTitle = this.title[0]
+        let yTitle = this.title[1]
+        let yTitleT = this.title[2]
+        let yTitleTh = this.title[3]
+        let yTitleF = this.title[4]
+        // console.log(xTitle,yTitle);
+        // console.log(this.getValuesByKey(convertedData.body,xTitle));
+        let xData = this.getValuesByKey(convertedData.body,xTitle)
+        let yDataO = this.getValuesByKey(convertedData.body,yTitle)
+        let yDataT = this.getValuesByKey(convertedData.body,yTitleT)
+        let yDataTh = this.getValuesByKey(convertedData.body,yTitleTh)
+        let yDataF = this.getValuesByKey(convertedData.body,yTitleF)
+        let name = '公司营收财报'
+        console.log('11111111111111111111111111111'+name,xData,yDataO,yDataT,yDataTh,yDataF,headerT);
+        console.log(xTitle);
+        this.$refs.chart_line_one.type = 2
+        this.$refs.chart_line_one.initChart(name,xData,yDataO,yDataT,yDataTh,yDataF,headerT)
+        console.log(name,xData,yDataO,yDataT,yDataTh,yDataF,headerT);
+      }
+      if(this.$router.currentRoute.query.type == 'three'){
+        console.log(convertedData)
+        this.title = convertedData.header
+        let headerT = convertedData.header.slice(0)
+        headerT.shift()
+        // console.log('title',this.title);
+        let xTitle = this.title[0]
+        let yTitle = this.title[1]
+        let yTitleT = this.title[2]
+        let yTitleTh = this.title[3]
+        let yTitleF = this.title[4]
+        // console.log(xTitle,yTitle);
+        // console.log(this.getValuesByKey(convertedData.body,xTitle));
+        let xData = this.getValuesByKey(convertedData.body,xTitle)
+        let yDataO = this.getValuesByKey(convertedData.body,yTitle)
+        let yDataT = this.getValuesByKey(convertedData.body,yTitleT)
+        let yDataTh = this.getValuesByKey(convertedData.body,yTitleTh)
+        let yDataF = this.getValuesByKey(convertedData.body,yTitleF)
+        let name = '多功能兼容'
+        console.log(xTitle);
+        this.$refs.chart_line_one.type = 4
+        this.$refs.chart_line_one.initChart(name,xData,yDataO,yDataT,yDataTh,yDataF,headerT)
+      }
+
     },
     //数据处理
     getValuesByKey(array, key) {
@@ -58,6 +111,22 @@ export default {
         }
       }
       return values; // 返回包含所有值的数组
+    },
+    back(){
+      this.$router.push({
+        path:"/userTp"
+      })
+    }
+  },
+  mounted(){
+    if(this.$router.currentRoute.query.type == 'one'){
+      this.text = '班级到课率'
+    }
+    if(this.$router.currentRoute.query.type == 'two'){
+      this.text = '公司营收财报'
+    }
+    if(this.$router.currentRoute.query.type == 'three'){
+      this.text = '多功能兼容图'
     }
   }
   
@@ -68,7 +137,7 @@ export default {
 .home{
   width:100vw;
   height:100vh;
-  background: url(../../img/背景.png);
+  background: url(../../img/气球人.png);
   background-size: 100% 100%;
   .indexBox{
     width: 70vw;
@@ -84,6 +153,18 @@ export default {
     .chart{
       width: 60vw;
       height: 50vh;
+    }
+  }
+  .back{
+    width: 15vw;
+    height: 15vh;
+    position: absolute;
+    background-image: url(../../img/返回键.png);
+    background-size: 100% 100%;
+    bottom: 50vh;
+    &:hover{
+      cursor: pointer;
+      background-image: url(../../img/返回键点击效果.png);
     }
   }
 }

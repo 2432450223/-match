@@ -7,6 +7,7 @@
         <el-button type="primary" @click="goIndex('three')">海南省毕业生人数</el-button>
       </el-row>
     </div>
+    <div class="back" @click="back()"></div>
   </div>
 </template>
 
@@ -64,6 +65,11 @@ export default {
         }
       })
     },
+    back(){
+      this.$router.push({
+        path:"/switch"
+      })
+    }
   },
 }
 </script>
@@ -85,6 +91,18 @@ export default {
     line-height: 50vh;
     color: white;
     font-size: 5vw;
+  }
+  .back{
+    width: 15vw;
+    height: 15vh;
+    position: absolute;
+    background-image: url(../../img/返回键.png);
+    background-size: 100% 100%;
+    bottom: 50vh;
+    &:hover{
+      cursor: pointer;
+      background-image: url(../../img/返回键点击效果.png);
+    }
   }
 }
 </style>
